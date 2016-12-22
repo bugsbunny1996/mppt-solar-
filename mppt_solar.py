@@ -166,7 +166,7 @@ from scipy.interpolate import spline
 xnew = np.linspace(1,400,10000)
 power_smooth = spline(T,power,xnew)
 
-plt.title(" Mean Error Vs. Iteration(s)")
+plt.title(" Learning Curve")
 plt.ylabel("Error")
 plt.xlabel("Iteration")
 plt.plot(xnew,power_smooth,"r")
