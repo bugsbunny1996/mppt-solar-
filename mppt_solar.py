@@ -163,12 +163,11 @@ T = freeinput
 power = predict
 
 from scipy.interpolate import spline
-xnew = np.linspace(1,140,10000)
+xnew = np.linspace(1,400,10000)
 power_smooth = spline(T,power,xnew)
 
 plt.title(" Mean Error Vs. Iteration(s)")
 plt.ylabel("Error")
 plt.xlabel("Iteration")
 plt.plot(xnew,power_smooth,"r")
-plt.plot(freeinput,predict,"b")
 plt.show()
