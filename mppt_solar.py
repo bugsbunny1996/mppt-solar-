@@ -71,8 +71,6 @@ for i in range(0,11000):
 
 ld = convert(ld)
 z = convert(z)
-	
-
 regr_1 = DecisionTreeRegressor(max_depth=1000)
 regr_1.fit(z,ld)
 freeinput = list()
@@ -135,3 +133,42 @@ plt.plot(Q3,R3)
 plt.ylim(0,10)
 plt.show()
 '''
+#Mean Error calculation as time goes at Room temperature
+predict = [0]
+freeinput = [0]
+for count in range (1,3000):
+	
+	with open('solar.txt') as w:
+		se = np.asarray(w.readlines()[:count],np.float)
+	with open('traindata.txt') as load:
+		ld = np.asarray(load.readlines()[:count],np.float)
+	with open('temperature.txt') as temp:
+		te = np.asarray(temp.readlines()[:count],np.float)
+	z = list()
+	for i in range(0,count):
+		z.append(np.float(se[i]) * np.float(te[i])) 
+	ld = convert(ld)
+	z = convert(z)
+	regr_1 = DecisionTreeRegressor(max_depth=1000)
+	regr_1.fit(z,ld)	
+	p= regr_1.predict([300 * 500 ])
+	var2 = np.float(pando(0,500,300))
+	error = var2 - np.float(p)
+	if error < 0:
+		error = -error
+	predict.append(error/var2)
+	freeinput.append(count)
+
+T = freeinput
+power = predict
+
+from scipy.interpolate import spline
+xnew = np.linspace(1,140,10000)
+power_smooth = spline(T,power,xnew)
+
+plt.title(" Mean Error Vs. Iteration(s)")
+plt.ylabel("Error")
+plt.xlabel("Iteration")
+plt.plot(xnew,power_smooth,"r")
+plt.plot(freeinput,predict,"b")
+plt.show()
