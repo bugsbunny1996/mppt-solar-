@@ -150,8 +150,10 @@ for count in range (1,3000):
 	ld = convert(ld)
 	z = convert(z)
 	regr_1 = DecisionTreeRegressor(max_depth=1000)
-	regr_1.fit(z,ld)	
-	p= regr_1.predict([300 * 500 ])
+	regr_1.fit(z,ld)
+	var = np.array(300 * 500)
+	var = var.reshape(1,-1)
+	p= regr_1.predict(var)
 	var2 = np.float(pando(0,500,300))
 	error = var2 - np.float(p)
 	if error < 0:
