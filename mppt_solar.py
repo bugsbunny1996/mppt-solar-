@@ -93,17 +93,17 @@ plt.show()
 '''
 
 #Error calculation in constant temperature 298.15K 
-'''
+
 for i in range(1,800):
 	freeinput.append(i)
-	
-	p=regr_1.predict([298.15 * i])
+	var = np.array(298.15 * i).reshape(1,-1)
+	p=regr_1.predict(var)
 	var2 = pando(0,i,300)
 	error = var2 - np.float(p)
 	predict.append(error/var2)
 plt.plot(freeinput,predict)
 plt.show()
-'''
+
 #Power vs Current vs Voltage graphs 
 '''
 Iph = 800 * 241.935 * 1e-4*(1.6/4.88)
@@ -132,7 +132,7 @@ plt.plot(Q2,R2)
 plt.plot(Q3,R3)
 plt.ylim(0,10)
 plt.show()
-'''
+
 #Mean Error calculation as time goes at Room temperature
 predict = [0]
 freeinput = [0]
@@ -173,3 +173,4 @@ plt.ylabel("Error")
 plt.xlabel("Iteration")
 plt.plot(xnew,power_smooth,"r")
 plt.show()
+'''
